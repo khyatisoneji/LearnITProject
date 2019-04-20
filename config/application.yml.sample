@@ -1,0 +1,7 @@
+SLACK_CLIENT_ID: '<your-slack-client-id>'
+SLACK_CLIENT_SECRET: '<your-slack-client-secret>'
+DB_HOST: 'localhost'
+DB_NAME: 'litg_project'
+DB_USER: 'postgres'
+DB_PASSWORD:
+DB_POOL: '25'
