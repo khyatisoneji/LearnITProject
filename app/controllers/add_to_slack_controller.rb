@@ -38,6 +38,9 @@ class AddToSlackController < ActionController::API
           bot_user_id: bot_user_id
       )
     end
+    options = params.slice(:state)
+
+    SlackRubyBotServer::Service.instance.create!(team, options)
     render json: { message: 'Team Successfully Registered' }, status: 200
   end
 end
