@@ -31,7 +31,7 @@ class AddToSlackController < ActionController::API
     else
       team = Team.create!(
           token: token,
-          team_id: rc['team_id'],
+          slack_team_id: rc['team_id'],
           name: rc['team_name'],
           activated_user_id: user_id,
           activated_user_access_token: access_token,
