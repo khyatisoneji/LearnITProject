@@ -5,8 +5,8 @@ Following commands are available:
 General
 -------
 help               - get this helpful message
-set question time <time> - set time to ask question, input time in HH:mm format(example: 22:30)
-give <user> ... - add users who will be asked questions
+addUser <user> ... - add users who will be asked questions
+addQuestion <question> ... - add question to be asked
 ```
   EOS
   def self.call(client, data, _match)

@@ -1,4 +1,3 @@
-require 'pry'
 class User < ApplicationRecord
   belongs_to :team
 
@@ -7,29 +6,23 @@ class User < ApplicationRecord
   end
 
   def self.find_by_slack_mention!(client, user_name)
-    team = client.owner
     slack_id = slack_mention?(user_name)
-    binding.pry
-    user = if slack_id
-             team.users.where(user_id: slack_id).first
-           else
-             regexp = ::Regexp.new("^#{user_name}$", 'i')
-             User.where(team: team).or({ user_name: regexp }, nickname: regexp).first
-           end
-    binding.pry
-    unless user
-      begin
-        binding.pry
-        users_info = client.web_client.users_info(user: slack_id || "@#{user_name}")
-        info = Hashie::Mash.new(users_info).user if users_info
-        user = User.create!(team: team, user_id: info.id, user_name: info.name, registered: true) if info
-      rescue Slack::Web::Api::Errors::SlackError => e
-        raise e unless e.message == 'user_not_found'
-      end
+    unless slack_id
+      raise "Please enter valid user handle"
     end
-    raise SlackGamebot::Error, "I don't know who #{user_name} is! Ask them to _register_." unless user&.registered?
-    raise SlackGamebot::Error, "I don't know who #{user_name} is!" unless user
-
+    user = find_create_or_update_by_slack_id!(client, slack_id, user_name)
+    raise "I don't know who #{user_name} is!" unless user
     user
+  end
+
+  def self.find_create_or_update_by_slack_id!(client, slack_id, nickname)
+    instance = User.where(team: client.owner, slack_user_id: slack_id).first
+    if instance
+      raise "User #{nickname} already exists"
+    end
+    instance_info = Hashie::Mash.new(client.web_client.users_info(user: slack_id)).user
+    instance.update_attributes!(user_name: instance_info.name) if instance && instance.user_name != instance_info.name
+    instance ||= User.create!(team: client.owner, slack_user_id: slack_id, user_name: instance_info.name, nickname: nickname)
+    instance
   end
 end

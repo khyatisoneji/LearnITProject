@@ -2,6 +2,7 @@
 
 require_relative 'config/environment'
 require_relative 'commands'
+require_relative 'models'
 require 'slack-ruby-bot-server'
 
 Thread.new do
