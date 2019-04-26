@@ -1,5 +1,4 @@
 require 'net/http'
-
 class AddToSlackController < ActionController::API
   def main
     params do
@@ -18,7 +17,7 @@ class AddToSlackController < ActionController::API
     user_id = rc['user_id']
     access_token = rc['access_token']
     team = Team.where(token: token).first
-    team ||= Team.where(team_id: rc['team_id']).first
+    team ||= Team.where(slack_team_id: rc['team_id']).first
 
     if team
       team.update_attributes!(
