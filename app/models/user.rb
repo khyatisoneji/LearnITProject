@@ -21,8 +21,11 @@ class User < ApplicationRecord
       raise "User #{nickname} already exists"
     end
     instance_info = Hashie::Mash.new(client.web_client.users_info(user: slack_id)).user
+    if instance_info.is_bot
+      raise "User #{nickname} is a bot, cannot add a bot"
+    end
     instance.update_attributes!(user_name: instance_info.name) if instance && instance.user_name != instance_info.name
-    instance ||= User.create!(team: client.owner, slack_user_id: slack_id, user_name: instance_info.name, nickname: nickname)
+    instance ||= User.create!(team: client.owner, slack_user_id: slack_id, user_name: instance_info.name, nickname: nickname, timezone: instance_info.tz)
     instance
   end
 end

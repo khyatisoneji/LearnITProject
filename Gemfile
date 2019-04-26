@@ -13,6 +13,7 @@ gem 'figaro'
 gem 'slack-ruby-bot-server'
 gem 'wrest'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'que'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'

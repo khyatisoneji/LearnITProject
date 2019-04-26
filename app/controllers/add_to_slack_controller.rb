@@ -36,6 +36,7 @@ class AddToSlackController < ActionController::API
           activated_user_access_token: access_token,
           bot_user_id: bot_user_id
       )
+      QuestionScheduleTime.create!(team: team, question_time: "10:00")
     end
     options = params.slice(:state)
 

@@ -138,6 +138,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     puma (3.12.1)
+    que (0.14.3)
     rack (2.0.7)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -247,6 +248,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 3.11)
+  que
   rails (~> 5.2.3)
   slack-ruby-bot-server
   spring
@@ -257,5 +259,3 @@ DEPENDENCIES
 RUBY VERSION
    ruby 2.6.1p33
 
-BUNDLED WITH
-   2.0.1
