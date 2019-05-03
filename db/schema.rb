@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_171413) do
+ActiveRecord::Schema.define(version: 2019_05_03_045811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "question_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
 
   create_table "que_jobs", primary_key: ["queue", "priority", "run_at", "job_id"], comment: "3", force: :cascade do |t|
     t.integer "priority", limit: 2, default: 100, null: false
@@ -64,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_04_26_171413) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "answers", "questions"
   add_foreign_key "question_schedule_times", "teams"
   add_foreign_key "questions", "teams"
   add_foreign_key "users", "teams"

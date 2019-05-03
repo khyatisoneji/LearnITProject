@@ -6,7 +6,7 @@ class AddUser < SlackRubyBot::Commands::Base
     question_time = QuestionScheduleTime.where(team: team).first
     arguments.each do |user_name|
       user = User::find_by_slack_mention!(client, user_name)
-      SendQuestions.enqueue user.id, run_at: QuestionScheduleTime.next_timestamp(question_time.question_time, user.timezone)
+      SendQuestions.enqueue user_id: user.id, team_id: team.slack_team_id, channel: data.channel, run_at: QuestionScheduleTime.next_timestamp(question_time.question_time, user.timezone)
       client.say(channel: data.channel, text: ["Successfully added #{user.nickname}"].join("\n"))
       logger.info "Added user to team: #{client.owner}, user=#{user}"
     end
