@@ -7,8 +7,9 @@ class DownloadReport < SlackRubyBot::Commands::Base
     users.each do |user|
       text << "User Name: #{user.user_name}\n\n"
       questions.each do |question|
-        text << "Question: #{question.question}\n"
         answer = Answer.where(user: user, question: question).first
+        next if answer.nil?
+        text << "Question: #{question.question}\n"
         text << "Answer Time: #{answer.created_at}\n"
         text << "User's Answer: #{answer.answer}\n\n"
       end
