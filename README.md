@@ -13,6 +13,11 @@ e. Download report: This report contains information of each answer provided by 
 ##Starting the application:
 This application is written in Ruby on Rails.
 
+First copy the sample application config to your application config by runnning command:
+`cp config/application.yml.sample config/application.yml`
+
+You need to add postgres login credentials and slack details like `slack client id` and `slack client secret`
+
 To run the application run the command:
 `bundle exec rails s -p 4567`
 
