@@ -5,8 +5,7 @@ class AnswerQuestion < SlackRubyBot::Commands::Base
 
     question_id = arguments[0]
     answer = arguments[1]
-
-    Answer::answer_question(client, question_id, answer)
+    Answer::answer_question(client, question_id, answer, data.user)
     client.say(channel: data.channel, text: ["Successfully answered question"].join("\n"))
     logger.info "User answered to question: #{question_id} in team: #{client.owner}"
   end

@@ -9,6 +9,7 @@ b. Add User: Add user to ask questions
 c. Add Question: Add question to be asked to all users
 d. Schedule Question: Set the time in HH:mm format when the answer will be scheduled
 e. Download report: This report contains information of each answer provided by users.
+f. Show Questions: Shows the questions that the user has to answer
 
 ##Starting the application:
 This application is written in Ruby on Rails.
